@@ -1,5 +1,10 @@
 import React from 'react';
-import {Fill, useFrame, useVideoConfig} from './core/frames';
+import {
+	Fill,
+	useEntersViaTransition,
+	useFrame,
+	useVideoConfig,
+} from './core/frames';
 import {interpolate, spring} from './core/animate';
 import {springs} from './motion/springs';
 
@@ -27,7 +32,10 @@ export type SlideStageProps = {
 	children: React.ReactElement<{style?: React.CSSProperties}>;
 	/**
 	 * 등장 모션. 'rise'는 스프링 상승 + 페이드인, 'none'은 정적.
-	 * 기본값 'rise'.
+	 *
+	 * 생략하면 문맥에 따라 정해진다 — 덱에서 전환(push/fade)을 타고 들어오는
+	 * 장면은 'none'(전환과 등장이 겹쳐 뿌예지는 것을 막는다), 그 외에는
+	 * 'rise'. 명시하면 그 값이 항상 이긴다.
 	 */
 	entrance?: 'rise' | 'none';
 	/** 등장 시작 프레임 오프셋 */
@@ -43,12 +51,14 @@ export type SlideStageProps = {
 
 export const SlideStage: React.FC<SlideStageProps> = ({
 	children,
-	entrance = 'rise',
+	entrance,
 	entranceDelay = 0,
 	background = 'var(--color-semantic-background-band)',
 }) => {
 	const frame = useFrame();
 	const {fps, width, height} = useVideoConfig();
+	const viaTransition = useEntersViaTransition();
+	const resolvedEntrance = entrance ?? (viaTransition ? 'none' : 'rise');
 
 	const fitScale = Math.min(
 		width / SLIDE_CANVAS.width,
@@ -56,7 +66,7 @@ export const SlideStage: React.FC<SlideStageProps> = ({
 	);
 
 	const t = frame - entranceDelay;
-	const active = entrance !== 'none';
+	const active = resolvedEntrance !== 'none';
 	const entranceSpring = active
 		? spring({frame: t, fps, config: springs.entrance})
 		: 1;

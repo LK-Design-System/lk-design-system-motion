@@ -45,7 +45,6 @@ npm run check:determinism                                    # 결정론 가드
 
 ```tsx
 import {SlideStage} from '../SlideStage';
-// @ts-expect-error — lds-slides-ui는 타입 선언이 없는 JS 패키지다
 import {StatSlide} from '@lk-design-system/lds-slides-ui';
 import '../ldsStyles';
 
@@ -55,6 +54,37 @@ export const MyScene = () => (
   </SlideStage>
 );
 ```
+
+## 여러 슬라이드를 이어붙이기
+
+`src/compositions/DeckDemo.tsx`가 레퍼런스다. 장면 목록을 `Deck`에 넘기면
+순서대로 배치된다. 각 장면은 자기 로컬 프레임 0부터 시작하므로, 덱 어디에
+놓였는지 신경 쓸 필요가 없다.
+
+```tsx
+import {Deck, deckDuration, type DeckEntry} from '../core/sequence';
+
+export const scenes: DeckEntry[] = [
+  {durationInFrames: 90, element: <SlideStage><TitleSlide … /></SlideStage>},
+  {durationInFrames: 90, transition: 'push', transitionDuration: 15,
+   element: <SlideStage><StatSlide … /></SlideStage>},
+];
+
+export const MyDeck = () => <Deck scenes={scenes} />;
+export const myDeckDuration = deckDuration(scenes);   // registry에 이 값을 넣는다
+```
+
+전환은 장면을 겹치게 만들어서 덱 길이가 단순 합보다 짧다. 그래서
+`durationInFrames`는 손으로 세지 말고 **`deckDuration()`으로 받는다.**
+
+| 전환 | 쓰임 |
+|---|---|
+| `push` | 들어오는 장면이 오른쪽에서 밀고 들어온다. 내용이 겹치지 않아 **텍스트 슬라이드끼리는 이걸 쓴다** |
+| `fade` | 크로스 디졸브. 겹치는 동안 두 장면이 동시에 보여 글자가 서로 비친다 — 사진·도형 장면용 |
+| `none` | 겹침 없이 교체 (기본값) |
+
+전환을 타고 들어오는 장면은 `SlideStage`의 자체 등장 모션이 자동으로 꺼진다.
+전환과 등장이 두 겹으로 쌓여 뿌예지는 것을 막기 위해서다.
 
 움직임은 `useFrame()`에서 유도한다. CSS `transition`/`animation`,
 `setTimeout`, `Math.random()`은 렌더를 비결정적으로 만들어 금지다.

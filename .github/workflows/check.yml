@@ -1,0 +1,71 @@
+name: check
+
+# 이 워크플로의 목적은 "동료가 처음 clone했을 때"를 재현하는 것이다.
+# 로컬 node_modules·npm 캐시·링크된 워크스페이스에 기대지 않고, 저장소에
+# 커밋된 것만으로 설치와 렌더가 끝까지 도는지 확인한다.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  cold-clone:
+    strategy:
+      fail-fast: false
+      matrix:
+        # 동료들은 Windows를 쓰고 CI는 Linux가 싸다. 둘 다 본다 —
+        # 폰트 렌더링과 경로 처리가 갈리는 지점이라 한쪽만으로는 부족하다.
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 25
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # 캐시를 쓰지 않는다. 캐시가 있으면 "vendor tgz만으로 설치가 되는가"를
+      # 검증하지 못한다 — 그게 이 잡의 핵심이다.
+      - name: Install (cold, lockfile 그대로)
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run check:types
+
+      # 같은 프레임을 두 번 렌더해 SHA256이 일치하는지 본다.
+      # 벽시계·ResizeObserver·난수에 의존하는 코드가 섞이면 여기서 죽는다.
+      - name: 결정론 가드 (단일 슬라이드)
+        run: node scripts/check-determinism.mjs TitleDemo 45
+
+      - name: 결정론 가드 (덱 전환 한복판)
+        run: node scripts/check-determinism.mjs DeckDemo 80
+
+      - name: 덱 MP4 렌더
+        run: node scripts/render.mjs DeckDemo out/deck.mp4
+
+      - name: 렌더 산출물 확인
+        shell: bash
+        run: |
+          test -s out/deck.mp4 || { echo "deck.mp4가 비었다"; exit 1; }
+          echo "deck.mp4 $(wc -c < out/deck.mp4) bytes"
+
+      # 실패했을 때 눈으로 볼 수 있게 프레임을 남긴다.
+      - name: 검수용 프레임
+        if: always()
+        run: |
+          node scripts/render.mjs DeckDemo out/ci-f000.png --frame=0
+          node scripts/render.mjs DeckDemo out/ci-f082.png --frame=82
+          node scripts/render.mjs DeckDemo out/ci-f200.png --frame=200
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: render-${{ matrix.os }}
+          path: |
+            out/*.png
+            out/*.mp4
+          retention-days: 7

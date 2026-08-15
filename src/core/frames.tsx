@@ -37,6 +37,18 @@ export const CompositionHost: React.FC<{
 /** 현재 프레임 번호. 모든 움직임은 여기서 유도한다. */
 export const useFrame = (): number => React.useContext(FrameContext);
 
+/**
+ * 이 장면이 전환(push/fade)을 타고 등장하는 중인지.
+ *
+ * 전환과 장면 자체의 등장 모션이 동시에 재생되면 움직임이 두 겹으로
+ * 쌓여서 뿌옇게 보인다. SlideStage는 이 값이 true면 자체 등장을 끈다.
+ * Scene이 값을 넣어주므로 덱 밖(단일 컴포지션)에서는 항상 false다.
+ */
+const SceneEntryContext = React.createContext<boolean>(false);
+export const SceneEntryProvider = SceneEntryContext.Provider;
+export const useEntersViaTransition = (): boolean =>
+	React.useContext(SceneEntryContext);
+
 /** 컴포지션의 해상도·fps·길이. */
 export const useVideoConfig = (): VideoConfig => {
 	const config = React.useContext(ConfigContext);

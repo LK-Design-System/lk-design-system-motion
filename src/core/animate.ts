@@ -43,6 +43,16 @@ export const interpolate = (
 	return y0 + (y1 - y0) * t;
 };
 
+/** 표준 이징 곡선. interpolate의 easing 옵션에 넘긴다. */
+export const Easing = {
+	linear: (t: number) => t,
+	easeOutCubic: (t: number) => 1 - Math.pow(1 - t, 3),
+	easeInOutCubic: (t: number) =>
+		t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2,
+	/** 슬라이드 전환용 — 빠르게 출발해 부드럽게 멈춘다 */
+	easeOutQuint: (t: number) => 1 - Math.pow(1 - t, 5),
+} as const;
+
 export type SpringConfig = {
 	damping: number;
 	stiffness: number;

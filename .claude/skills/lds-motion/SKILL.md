@@ -21,6 +21,8 @@ MP4를 뽑는다. **엔진은 자체 구현이다** (`src/core/`) — Remotion�
 | `interpolate(x, [in], [out], opts)` | 다중 구간 선형 보간 + clamp/easing |
 | `spring({frame, fps, config})` | 감쇠 조화 진동자 해석해 (0→1) |
 | `<CompositionHost>` | 프레임·설정을 컨텍스트로 주입 (프리뷰/렌더러가 사용) |
+| `<Scene>` / `<Deck>` / `deckDuration()` | 장면 배치와 전환 (`core/sequence.tsx`) |
+| `Easing` | linear / easeOutCubic / easeInOutCubic / easeOutQuint |
 
 **핵심 계약: 컴포지션은 `프레임 번호 → 정지 화면`의 순수 함수다.**
 `setTimeout`, `requestAnimationFrame`, `Date.now()`, `Math.random()`,
@@ -58,6 +60,31 @@ SlideStage가 하는 일: ① 자식에 `style.transform='none'`을 주입해 �
 스케일을 끄고(SlideSurface는 `...style`을 transform 뒤에 스프레드하므로
 안전), ② `useVideoConfig()` 기반 순수 계산으로 스케일을 소유한다.
 만든 장면은 `src/compositions/registry.tsx`에 등록해야 프리뷰·렌더러가 본다.
+
+## 덱 만들기
+
+`src/compositions/DeckDemo.tsx`가 레퍼런스다.
+
+```tsx
+export const scenes: DeckEntry[] = [
+  {durationInFrames: 90, element: <SlideStage><TitleSlide … /></SlideStage>},
+  {durationInFrames: 90, transition: 'push', transitionDuration: 15,
+   element: <SlideStage><StatSlide … /></SlideStage>},
+];
+export const MyDeck = () => <Deck scenes={scenes} />;
+export const myDeckDuration = deckDuration(scenes);
+```
+
+**텍스트 슬라이드끼리는 `push`를 쓴다.** LDS 슬라이드는 불투명한 흰 표면
+(`--slides-surface`)이라 `fade`로 겹치면 두 장면의 글자가 서로 비쳐 지저분해진다.
+`fade`는 사진·도형 장면용이다.
+
+`durationInFrames`를 손으로 세지 말 것 — 전환이 장면을 겹치게 만들어 덱
+길이가 단순 합보다 짧다. `deckDuration()`이 `Deck`과 같은 배치 규칙을 쓴다.
+
+전환을 타고 들어오는 장면은 SlideStage의 자체 등장이 자동으로 꺼진다
+(`useEntersViaTransition`). 전환과 등장이 두 겹으로 쌓이면 화면이 뿌예진다 —
+실제로 한 번 그렇게 렌더됐다. 명시적으로 `entrance="rise"`를 주면 그 값이 이긴다.
 
 ## 함정 2 — 존재하지 않는 CSS 토큰은 조용히 실패한다
 

@@ -1,5 +1,4 @@
 import React from 'react';
-// @ts-expect-error — lds-slides-ui는 타입 선언이 없는 JS 패키지다
 import {TitleSlide} from '@lk-design-system/lds-slides-ui';
 import {SlideStage} from '../SlideStage';
 import '../ldsStyles';
