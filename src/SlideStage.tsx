@@ -1,11 +1,6 @@
 import React from 'react';
-import {
-	AbsoluteFill,
-	interpolate,
-	spring,
-	useCurrentFrame,
-	useVideoConfig,
-} from 'remotion';
+import {Fill, useFrame, useVideoConfig} from './core/frames';
+import {interpolate, spring} from './core/animate';
 import {springs} from './motion/springs';
 
 /**
@@ -35,9 +30,14 @@ export type SlideStageProps = {
 	 * 기본값 'rise'.
 	 */
 	entrance?: 'rise' | 'none';
-	/** 등장 시작 프레임 오프셋 (Sequence 없이 지연시킬 때) */
+	/** 등장 시작 프레임 오프셋 */
 	entranceDelay?: number;
-	/** 무대 배경. 기본은 LDS 시맨틱 배경 토큰. */
+	/**
+	 * 무대 배경 — 슬라이드 표면 뒤로 보이는 면.
+	 * 기본은 LDS 시맨틱 배경 토큰. 존재하지 않는 토큰을 넘기면 CSS가
+	 * 조용히 transparent로 떨어져 검은 화면이 비치므로, 반드시
+	 * lds-theme에 실재하는 이름을 쓸 것 (--color-semantic-background-*).
+	 */
 	background?: string;
 };
 
@@ -45,9 +45,9 @@ export const SlideStage: React.FC<SlideStageProps> = ({
 	children,
 	entrance = 'rise',
 	entranceDelay = 0,
-	background = 'var(--color-semantic-bg-normal)',
+	background = 'var(--color-semantic-background-band)',
 }) => {
-	const frame = useCurrentFrame();
+	const frame = useFrame();
 	const {fps, width, height} = useVideoConfig();
 
 	const fitScale = Math.min(
@@ -74,8 +74,8 @@ export const SlideStage: React.FC<SlideStageProps> = ({
 	});
 
 	return (
-		<AbsoluteFill style={{backgroundColor: background}}>
-			<AbsoluteFill style={{justifyContent: 'center', alignItems: 'center'}}>
+		<Fill style={{backgroundColor: background}}>
+			<Fill style={{justifyContent: 'center', alignItems: 'center'}}>
 				<div
 					style={{
 						width: SLIDE_CANVAS.width,
@@ -86,7 +86,7 @@ export const SlideStage: React.FC<SlideStageProps> = ({
 				>
 					{slide}
 				</div>
-			</AbsoluteFill>
-		</AbsoluteFill>
+			</Fill>
+		</Fill>
 	);
 };

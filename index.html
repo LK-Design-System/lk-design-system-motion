@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="ko">
+	<head>
+		<meta charset="UTF-8" />
+		<title>lds-motion</title>
+		<style>
+			html,
+			body {
+				margin: 0;
+				padding: 0;
+				background: #0b0b0d;
+			}
+			/* 렌더 모드에서는 스크롤바가 스크린샷에 끼어들지 않게 한다 */
+			body[data-render='1'] {
+				overflow: hidden;
+				background: transparent;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="root"></div>
+		<script type="module" src="/src/preview/main.tsx"></script>
+	</body>
+</html>
