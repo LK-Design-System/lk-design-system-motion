@@ -1,0 +1,42 @@
+{
+  "name": "@lk-design-system/lds-motion",
+  "version": "0.1.0-alpha.1",
+  "description": "Deterministic motion layer for LDS — renders design-system slide layouts to video with Remotion.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "remotion studio --port=3112",
+    "render": "remotion render",
+    "still": "remotion still",
+    "check:determinism": "node scripts/check-determinism.mjs"
+  },
+  "dependencies": {
+    "@lk-design-system/lds-core": "file:vendor/lk-design-system-lds-core-0.1.0-rc.4.tgz",
+    "@lk-design-system/lds-slides-ui": "file:vendor/lk-design-system-lds-slides-ui-0.1.0-alpha.1.tgz",
+    "@lk-design-system/lds-theme": "file:vendor/lk-design-system-lds-theme-0.1.0-rc.4.tgz",
+    "@remotion/cli": "^4.0.512",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "remotion": "^4.0.512"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "esbuild-loader": "^4.4.0",
+    "typescript": "^5.9.3"
+  },
+  "overrides": {
+    "@lk-design-system/lds-slides-ui": {
+      "@lk-design-system/lds-core": "file:vendor/lk-design-system-lds-core-0.1.0-rc.4.tgz",
+      "@lk-design-system/lds-editorial-ui": "file:vendor/lk-design-system-lds-editorial-ui-0.1.0-alpha.3.tgz",
+      "@lk-design-system/lds-product": "file:vendor/lk-design-system-lds-product-0.1.0-rc.4.tgz"
+    }
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
+  },
+  "allowScripts": {
+    "esbuild@0.28.1": true
+  }
+}
