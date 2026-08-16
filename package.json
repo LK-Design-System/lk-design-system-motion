@@ -1,9 +1,11 @@
 {
   "name": "@lk-design-system/lds-motion",
-  "version": "0.1.0-alpha.3",
+  "version": "0.1.0-alpha.4",
   "description": "Deterministic motion layer for LDS — renders design-system slide layouts to video. Self-contained engine, no per-seat licensing.",
   "license": "MIT",
   "type": "module",
+  "//private": "이 저장소는 clone해서 쓰는 도구다 — main·exports·files가 없어 패키지로 설치할 것이 없다. private으로 못박아 두는 이유는 T3 함정을 구조적으로 없애기 위해서다: LDS 레이어를 vendored tgz로 두는 지금 방식은 clone 소비에서 인증 없이 설치되는 이점이 있지만(실측 6초), 퍼블리시하는 순간 npm pack이 vendor를 제외해 소비자 설치가 반드시 깨진다. 라이브러리가 되려면 peerDependencies로 바꾸는 것이 먼저다.",
+  "private": true,
   "scripts": {
     "dev": "vite",
     "render": "node scripts/render.mjs",
@@ -12,12 +14,12 @@
     "postinstall": "playwright install chromium"
   },
   "dependencies": {
-    "@lk-design-system/lds-core": "file:vendor/lk-design-system-lds-core-0.1.0-rc.4.tgz",
-    "@lk-design-system/lds-slides-ui": "file:vendor/lk-design-system-lds-slides-ui-0.1.0-alpha.3.tgz",
-    "@lk-design-system/lds-theme": "file:vendor/lk-design-system-lds-theme-0.1.0-rc.4.tgz",
+    "@lk-design-system/lds-core": "file:vendor/lk-design-system-lds-core-0.1.0-rc.69.18.tgz",
+    "@lk-design-system/lds-slides-ui": "file:vendor/lk-design-system-lds-slides-ui-0.1.0-alpha.4.tgz",
+    "@lk-design-system/lds-theme": "file:vendor/lk-design-system-lds-theme-0.1.0-rc.69.18.tgz",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
-    "@lk-design-system/lds-product": "file:vendor/lk-design-system-lds-product-0.1.0-rc.4.tgz"
+    "@lk-design-system/lds-product": "file:vendor/lk-design-system-lds-product-0.1.0-rc.69.18.tgz"
   },
   "devDependencies": {
     "@types/react": "^19.2.7",
@@ -27,10 +29,6 @@
     "playwright": "^1.61.1",
     "typescript": "^5.9.3",
     "vite": "^8.1.3"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com",
-    "access": "restricted"
   },
   "allowScripts": {
     "esbuild@0.28.1": true,

@@ -138,8 +138,8 @@ canvas 계열 대안(Motion Canvas, Revideo)은 MIT지만 React DOM을 렌더하
 
 | 패키지 | 버전 | 비고 |
 |---|---|---|
-| lds-slides-ui | 0.1.0-alpha.3 | 레이아웃 원본. `scale="none"` 계약 포함 |
-| lds-core / theme / product | 0.1.0-rc.4 | slides-ui의 자체 핀과 일치. 릴리스 라인(rc.69.x) 정렬은 slides-ui 업그레이드와 함께 진행 예정 |
+| lds-slides-ui | 0.1.0-alpha.4 | 레이아웃 원본. `scale="none"` 계약 포함 |
+| lds-core / theme / product | 0.1.0-rc.69.18 | 릴리스 라인과 정렬됨 (2026-08-16). rc.4에서 올렸는데 렌더 결과는 바이트까지 동일했다 |
 
 ## 라이선스
 
