@@ -45,7 +45,6 @@ SlideSurface는 1280px 논리 캔버스를 ResizeObserver + layout effect로
 
 ```tsx
 import {SlideStage} from '../SlideStage';
-// @ts-expect-error — lds-slides-ui는 타입 선언이 없는 JS 패키지다
 import {TitleSlide} from '@lk-design-system/lds-slides-ui';
 import '../ldsStyles';
 
@@ -56,10 +55,19 @@ export const MyScene = () => (
 );
 ```
 
-SlideStage가 하는 일: ① 자식에 `style.transform='none'`을 주입해 자체
-스케일을 끄고(SlideSurface는 `...style`을 transform 뒤에 스프레드하므로
-안전), ② `useVideoConfig()` 기반 순수 계산으로 스케일을 소유한다.
+`@ts-expect-error`를 붙이지 않는다. slides-ui는 자체 `.d.ts`가 없는 JS
+패키지지만 `src/types/lds-slides-ui.d.ts`에 앰비언트 선언을 두었으므로
+타입이 잡힌다. 습관적으로 붙이면 `check:types`가 `TS2578: Unused
+'@ts-expect-error' directive`로 실패한다.
+
+SlideStage가 하는 일: ① 자식에 `scale="none"`을 넘겨 SlideSurface의 자체
+측정을 아예 끄고(slides-ui alpha.3부터의 계약), ② `useVideoConfig()` 기반
+순수 계산으로 스케일을 소유한다.
 만든 장면은 `src/compositions/registry.tsx`에 등록해야 프리뷰·렌더러가 본다.
+
+**쓸 수 있는 슬라이드와 prop은 [`src/types/lds-slides-ui.d.ts`](../../../src/types/lds-slides-ui.d.ts)에 전부 있다** —
+레이아웃 14종과 각 prop 시그니처의 단일 출처다. 슬라이드를 고를 때
+node_modules를 뒤지지 말고 이 파일을 먼저 연다.
 
 ## 덱 만들기
 
@@ -167,9 +175,18 @@ CI에서 실측(2026-08-15): 리눅스와 윈도우의 같은 프레임을 비�
 
 ## 알려진 상태
 
-- vendored LDS 핀: core/theme/product **rc.4**, slides-ui **alpha.1**,
-  editorial **alpha.3**. 릴리스 라인은 rc.69.x — slides-ui 정렬 전까지 rc.4 유지.
-- `npm pack`은 `vendor/*.tgz`를 항상 제외한다. 그래서 slides-ui 내부의
-  `file:` 참조가 깨지고, package.json의 `overrides`로 우리 vendor로 돌린다.
+- vendored LDS 핀: core/theme/product **rc.69.18**, slides-ui **alpha.4**
+  (2026-08-16 릴리스 라인과 정렬됨). 정본은 이 문서가 아니라 `package.json`과
+  `vendor/`의 실물 tgz다 — 어긋나 보이면 그쪽을 믿는다.
+  rc.4에서 rc.69.18로 65버전을 건너뛰었는데 렌더 산출물은 바이트까지
+  동일했다(DeckDemo sha256 `453a93d8a374e717…`). 격차는 비호환이 아니라
+  기록되지 않은 상태였다.
+- ~~editorial~~은 없다. 2026-08-16에 slides-ui로 흡수됐고 저장소도 삭제됐다.
+  export 이름은 그대로 slides-ui에서 나온다.
+- 이 레포는 `private: true`다. clone해서 쓰는 도구이지 퍼블리시하는
+  패키지가 아니다 — `main`·`exports`·`files`가 없어 설치할 것이 없다.
+  `npm pack`이 `vendor/*.tgz`를 항상 제외하므로, 퍼블리시하는 순간
+  `file:` 의존이 소비자 설치에서 해소되지 않는다. private이 그 함정을
+  구조적으로 막고, 대신 clone 설치가 레지스트리 인증 없이 끝난다.
 - 렌더는 단일 탭 순차다 (120프레임 ≈ 13초). 분 단위 영상이 필요해지면
   프레임 구간을 나눠 병렬화한다 (`--range=A-B`가 이미 있다).

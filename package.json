@@ -6,6 +6,9 @@
   "type": "module",
   "//private": "이 저장소는 clone해서 쓰는 도구다 — main·exports·files가 없어 패키지로 설치할 것이 없다. private으로 못박아 두는 이유는 T3 함정을 구조적으로 없애기 위해서다: LDS 레이어를 vendored tgz로 두는 지금 방식은 clone 소비에서 인증 없이 설치되는 이점이 있지만(실측 6초), 퍼블리시하는 순간 npm pack이 vendor를 제외해 소비자 설치가 반드시 깨진다. 라이브러리가 되려면 peerDependencies로 바꾸는 것이 먼저다.",
   "private": true,
+  "engines": {
+    "node": ">=22 <25"
+  },
   "scripts": {
     "dev": "vite",
     "render": "node scripts/render.mjs",

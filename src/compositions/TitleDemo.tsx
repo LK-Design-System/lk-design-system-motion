@@ -9,7 +9,7 @@ export const TitleDemo: React.FC = () => {
 		<SlideStage>
 			<TitleSlide
 				eyebrow="LK ROBOTICS"
-				title="LDS × Remotion"
+				title="LDS × Motion"
 				subtitle="디자인 시스템의 슬라이드 레이아웃을 결정론적 영상으로 렌더링한다"
 				foot="lds-motion"
 			/>

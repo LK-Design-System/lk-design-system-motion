@@ -18,6 +18,8 @@ Remotion을 쓰지 않는다 ([왜](#왜-remotion을-쓰지-않나)).
 
 ## 시작하기
 
+**Node 22가 필요하다** (CI가 검증하는 버전이다). 그 외 사전 설치는 없다.
+
 ```bash
 git clone https://github.com/LK-Design-System/lk-design-system-motion.git
 cd lk-design-system-motion
@@ -26,8 +28,12 @@ npm run dev
 ```
 
 `npm install`이 Playwright용 Chromium(~130MB)과 FFmpeg 바이너리(~79MB)를
-자동으로 받는다. 별도 설치는 없다. 프리뷰는 http://127.0.0.1:3112 —
-컴포지션 선택, 프레임 스크러버, 재생.
+자동으로 받는다. 맨바닥 머신에서는 이 다운로드 때문에 몇 분 걸린다 —
+Chromium이 이미 캐시된 머신에서는 10초 안에 끝나므로, 빠르게 끝났다고
+설치가 덜 된 것은 아니다. `npm warn allow-scripts ffmpeg-static` 경고는
+정상이다(바이너리는 정상적으로 설치된다).
+
+프리뷰는 http://127.0.0.1:3112 — 컴포지션 선택, 프레임 스크러버, 재생.
 
 ## 렌더
 
@@ -35,8 +41,12 @@ npm run dev
 node scripts/render.mjs TitleDemo out/title.mp4              # 영상
 node scripts/render.mjs TitleDemo out/f60.png --frame=60     # 스틸 한 장
 node scripts/render.mjs TitleDemo out/part.mp4 --range=0-59  # 구간만
+node scripts/render.mjs TitleDemo out/hq.mp4 --crf=18        # 화질 (낮을수록 고화질, 기본 20)
 npm run check:determinism                                    # 결정론 가드
 ```
+
+출력 디렉터리는 자동으로 만들어진다. 진행 로그는 한 줄을 덮어쓰며 갱신되므로,
+파이프로 받으면 여러 줄이 붙어 보이는 것이 정상이다.
 
 ## 새 슬라이드 만들기
 
@@ -45,15 +55,33 @@ npm run check:determinism                                    # 결정론 가드
 
 ```tsx
 import {SlideStage} from '../SlideStage';
-import {StatSlide} from '@lk-design-system/lds-slides-ui';
+import {TitleSlide} from '@lk-design-system/lds-slides-ui';
 import '../ldsStyles';
 
 export const MyScene = () => (
   <SlideStage>
-    <StatSlide {...props} />
+    <TitleSlide eyebrow="2026 Q3" title="현장 자동화" subtitle="…" foot="LK ROBOTICS" />
   </SlideStage>
 );
 ```
+
+그리고 `src/compositions/registry.tsx`에 항목을 추가한다:
+
+```tsx
+{
+  id: 'MyScene',          // 렌더 명령에 넘기는 이름
+  component: MyScene,
+  durationInFrames: 120,  // 30fps 기준 4초. 덱이라면 deckDuration()을 쓴다
+  ...video,               // 1920×1080 / 30fps 공통 설정
+}
+```
+
+### 쓸 수 있는 슬라이드
+
+레이아웃 **14종**과 각 prop 시그니처는
+[`src/types/lds-slides-ui.d.ts`](src/types/lds-slides-ui.d.ts)에 전부 있다.
+슬라이드를 고르거나 prop을 확인할 때 이 파일이 단일 출처다 — node_modules를
+뒤질 필요가 없다. 잘못 쓰면 `npm run check:types`가 잡아준다.
 
 ## 여러 슬라이드를 이어붙이기
 
