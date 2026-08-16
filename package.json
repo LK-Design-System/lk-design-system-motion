@@ -1,6 +1,6 @@
 {
   "name": "@lk-design-system/lds-motion",
-  "version": "0.1.0-alpha.4",
+  "version": "0.1.0-alpha.5",
   "description": "Deterministic motion layer for LDS — renders design-system slide layouts to video. Self-contained engine, no per-seat licensing.",
   "license": "MIT",
   "type": "module",
@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@lk-design-system/lds-core": "file:vendor/lk-design-system-lds-core-0.1.0-rc.69.18.tgz",
-    "@lk-design-system/lds-slides-ui": "file:vendor/lk-design-system-lds-slides-ui-0.1.0-alpha.4.tgz",
+    "@lk-design-system/lds-slides-ui": "file:vendor/lk-design-system-lds-slides-ui-0.1.0-alpha.5.tgz",
     "@lk-design-system/lds-theme": "file:vendor/lk-design-system-lds-theme-0.1.0-rc.69.18.tgz",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
