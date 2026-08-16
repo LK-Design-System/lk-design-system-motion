@@ -21,6 +21,8 @@ declare module '@lk-design-system/lds-slides-ui' {
 		footer?: boolean;
 		/** 발표자 노트 — 캔버스에는 렌더되지 않는다 */
 		notes?: React.ReactNode;
+		/** 출처 줄 — 캔버스 하단 크롬(푸터 위 밴드)에 고정된다 (alpha.6) */
+		source?: React.ReactNode;
 		/** 덱 종류 프리셋. --slides-* 토큰 값을 바꾼다. */
 		preset?: 'keynote' | 'briefing';
 		safeArea?: boolean;
@@ -62,6 +64,8 @@ declare module '@lk-design-system/lds-slides-ui' {
 
 	export const ContentSlide: React.FC<
 		SlideBase & {
+			/** 본문 블록의 세로 앵커 — 'center'는 헤더를 둔 채 잔여 공간 중앙 (alpha.6) */
+			anchor?: 'top' | 'center';
 			eyebrow?: React.ReactNode;
 			title?: React.ReactNode;
 			governing?: React.ReactNode;
@@ -71,6 +75,8 @@ declare module '@lk-design-system/lds-slides-ui' {
 
 	export const StatSlide: React.FC<
 		SlideBase & {
+			/** 본문 블록의 세로 앵커 — 'center'는 헤더를 둔 채 잔여 공간 중앙 (alpha.6) */
+			anchor?: 'top' | 'center';
 			eyebrow?: React.ReactNode;
 			title?: React.ReactNode;
 			figures?: Figure[];
@@ -88,6 +94,8 @@ declare module '@lk-design-system/lds-slides-ui' {
 
 	export const SplitSlide: React.FC<
 		SlideBase & {
+			/** 본문 블록의 세로 앵커 — 'center'는 헤더를 둔 채 잔여 공간 중앙 (alpha.6) */
+			anchor?: 'top' | 'center';
 			ratio?: string;
 			left?: React.ReactNode;
 			right?: React.ReactNode;
@@ -96,6 +104,8 @@ declare module '@lk-design-system/lds-slides-ui' {
 
 	export const CodeSlide: React.FC<
 		SlideBase & {
+			/** 본문 블록의 세로 앵커 — 'center'는 헤더를 둔 채 잔여 공간 중앙 (alpha.6) */
+			anchor?: 'top' | 'center';
 			eyebrow?: React.ReactNode;
 			title?: React.ReactNode;
 			governing?: React.ReactNode;
@@ -108,6 +118,8 @@ declare module '@lk-design-system/lds-slides-ui' {
 
 	export const CompareSlide: React.FC<
 		SlideBase & {
+			/** 본문 블록의 세로 앵커 — 'center'는 헤더를 둔 채 잔여 공간 중앙 (alpha.6) */
+			anchor?: 'top' | 'center';
 			eyebrow?: React.ReactNode;
 			title?: React.ReactNode;
 			governing?: React.ReactNode;
@@ -121,6 +133,8 @@ declare module '@lk-design-system/lds-slides-ui' {
 
 	export const FigureSlide: React.FC<
 		SlideBase & {
+			/** 본문 블록의 세로 앵커 — 'center'는 헤더를 둔 채 잔여 공간 중앙 (alpha.6) */
+			anchor?: 'top' | 'center';
 			eyebrow?: React.ReactNode;
 			title?: React.ReactNode;
 			governing?: React.ReactNode;
@@ -156,6 +170,8 @@ declare module '@lk-design-system/lds-slides-ui' {
 
 	export const RoadmapSlide: React.FC<
 		SlideBase & {
+			/** 본문 블록의 세로 앵커 — 'center'는 헤더를 둔 채 잔여 공간 중앙 (alpha.6) */
+			anchor?: 'top' | 'center';
 			eyebrow?: React.ReactNode;
 			title?: React.ReactNode;
 			governing?: React.ReactNode;
@@ -166,6 +182,8 @@ declare module '@lk-design-system/lds-slides-ui' {
 
 	export const AssessmentSlide: React.FC<
 		SlideBase & {
+			/** 본문 블록의 세로 앵커 — 'center'는 헤더를 둔 채 잔여 공간 중앙 (alpha.6) */
+			anchor?: 'top' | 'center';
 			eyebrow?: React.ReactNode;
 			title?: React.ReactNode;
 			governing?: React.ReactNode;

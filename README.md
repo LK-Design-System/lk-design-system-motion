@@ -174,8 +174,14 @@ canvas 계열 대안(Motion Canvas, Revideo)은 MIT지만 React DOM을 렌더하
 
 | 패키지 | 버전 | 비고 |
 |---|---|---|
-| lds-slides-ui | 0.1.0-alpha.5 | 레이아웃 원본. `scale="none"` 계약 포함 |
-| lds-core / theme / product | 0.1.0-rc.69.18 | 릴리스 라인과 정렬됨 (2026-08-16). rc.4에서 올렸는데 렌더 결과는 바이트까지 동일했다 |
+| lds-slides-ui | 0.1.0-alpha.6 | 레이아웃 원본. `scale="none"` 계약 포함. 구도 개편 세대(hero·분량 규칙·전폭 표·하단 출처) |
+| lds-core / theme / product | 0.1.0-rc.69.26 | 릴리스 라인과 정렬됨 (2026-08-17). display0이 여기서 생겨 alpha.6의 최소 요구다 |
+
+## 로드맵
+
+공개 레포 조사에서 추린 추가 과제(seekable 애니메이션 어댑터, 렌더 병렬화,
+모션 토큰 승격, 패턴 카탈로그)와 걸러낸 후보의 기록은
+[docs/ROADMAP.md](docs/ROADMAP.md)에 있다.
 
 ## 라이선스
 
