@@ -5,7 +5,7 @@ LDS의 결정론적 모션 레이어 — lds-slides-ui의 슬라이드 레이아
 
 ```
 lds-core / lds-theme     토큰 (색·타이포·폰트·간격)
-lds-slides-ui            슬라이드 레이아웃 16종 (정적)
+lds-slides-ui            슬라이드 레이아웃 14종 (정적)
 lds-motion               시간·스케일·등장/전환 모션   ← 이 레포
 ```
 
@@ -18,7 +18,8 @@ Remotion을 쓰지 않는다 ([왜](#왜-remotion을-쓰지-않나)).
 
 ## 시작하기
 
-**Node 22가 필요하다** (CI가 검증하는 버전이다). 그 외 사전 설치는 없다.
+**Node 22–24에서 동작한다** (`engines: ">=22 <25"`; CI는 22로 검증한다).
+그 외 사전 설치는 없다.
 
 ```bash
 git clone https://github.com/LK-Design-System/lk-design-system-motion.git
@@ -45,8 +46,10 @@ node scripts/render.mjs TitleDemo out/hq.mp4 --crf=18        # 화질 (낮을수
 npm run check:determinism                                    # 결정론 가드
 ```
 
-출력 디렉터리는 자동으로 만들어진다. 진행 로그는 한 줄을 덮어쓰며 갱신되므로,
-파이프로 받으면 여러 줄이 붙어 보이는 것이 정상이다.
+출력 디렉터리는 자동으로 만들어지고, `out/`은 gitignore라 렌더해도 워킹트리가
+더러워지지 않는다. 렌더러는 자체 Vite 서버를 임의 포트에 띄우므로 `npm run dev`가
+떠 있을 필요도, 떠 있어도 충돌할 일도 없다. 진행 로그는 한 줄을 덮어쓰며
+갱신되므로, 파이프로 받으면 여러 줄이 붙어 보이는 것이 정상이다.
 
 ## 새 슬라이드 만들기
 
@@ -82,6 +85,8 @@ export const MyScene = () => (
 [`src/types/lds-slides-ui.d.ts`](src/types/lds-slides-ui.d.ts)에 전부 있다.
 슬라이드를 고르거나 prop을 확인할 때 이 파일이 단일 출처다 — node_modules를
 뒤질 필요가 없다. 잘못 쓰면 `npm run check:types`가 잡아준다.
+slides-ui에는 이 밖에 `DeckViewer`·`PresenterView` 같은 상영 런타임도 있지만,
+영상 렌더 대상이 아니라 타입 정의에서 의도적으로 제외했다.
 
 ## 여러 슬라이드를 이어붙이기
 
@@ -164,9 +169,12 @@ canvas 계열 대안(Motion Canvas, Revideo)은 MIT지만 React DOM을 렌더하
 
 ## 알려진 핀
 
+정확한 핀은 `package.json`의 vendored tarball 경로가 단일 출처다. 아래 표는
+요약이며, 표가 낡았으면 `package.json`이 맞다.
+
 | 패키지 | 버전 | 비고 |
 |---|---|---|
-| lds-slides-ui | 0.1.0-alpha.4 | 레이아웃 원본. `scale="none"` 계약 포함 |
+| lds-slides-ui | 0.1.0-alpha.5 | 레이아웃 원본. `scale="none"` 계약 포함 |
 | lds-core / theme / product | 0.1.0-rc.69.18 | 릴리스 라인과 정렬됨 (2026-08-16). rc.4에서 올렸는데 렌더 결과는 바이트까지 동일했다 |
 
 ## 라이선스
