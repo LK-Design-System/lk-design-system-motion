@@ -1,6 +1,6 @@
 {
   "name": "@lk-design-system/lds-motion",
-  "version": "0.1.0-alpha.2",
+  "version": "0.1.0-alpha.3",
   "description": "Deterministic motion layer for LDS — renders design-system slide layouts to video. Self-contained engine, no per-seat licensing.",
   "license": "MIT",
   "type": "module",
@@ -13,10 +13,11 @@
   },
   "dependencies": {
     "@lk-design-system/lds-core": "file:vendor/lk-design-system-lds-core-0.1.0-rc.4.tgz",
-    "@lk-design-system/lds-slides-ui": "file:vendor/lk-design-system-lds-slides-ui-0.1.0-alpha.2.tgz",
+    "@lk-design-system/lds-slides-ui": "file:vendor/lk-design-system-lds-slides-ui-0.1.0-alpha.3.tgz",
     "@lk-design-system/lds-theme": "file:vendor/lk-design-system-lds-theme-0.1.0-rc.4.tgz",
     "react": "^19.2.8",
-    "react-dom": "^19.2.8"
+    "react-dom": "^19.2.8",
+    "@lk-design-system/lds-product": "file:vendor/lk-design-system-lds-product-0.1.0-rc.4.tgz"
   },
   "devDependencies": {
     "@types/react": "^19.2.7",
@@ -26,12 +27,6 @@
     "playwright": "^1.61.1",
     "typescript": "^5.9.3",
     "vite": "^8.1.3"
-  },
-  "overrides": {
-    "@lk-design-system/lds-slides-ui": {
-      "@lk-design-system/lds-core": "file:vendor/lk-design-system-lds-core-0.1.0-rc.4.tgz",
-      "@lk-design-system/lds-product": "file:vendor/lk-design-system-lds-product-0.1.0-rc.4.tgz"
-    }
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com",

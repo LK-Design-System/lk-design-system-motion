@@ -42,7 +42,14 @@ const layerStyle = (
 
 	// 나가는 쪽: fade는 들어오는 장면이 위에서 덮으므로 그대로 두고,
 	// push만 왼쪽으로 밀어낸다.
-	if (exit.type === 'push') translateX = -exit.progress * 100;
+	//
+	// progress > 0 조건이 필수다. 장면은 대개 들어오는 전환과 나가는 전환을
+	// 동시에 갖고 있고(앞 장면에서 밀려 들어와 뒤 장면에 밀려난다), 나가는
+	// 전환은 한참 뒤에 시작한다. 그동안 exit.progress는 0으로 clamp되는데,
+	// 조건 없이 대입하면 -0 * 100 = 0이 되어 **자기 등장 위치를 지워버린다.**
+	// 그러면 중간 장면들은 이미 제자리에 놓인 채로 나타나고, 앞 장면만
+	// 빠져나가는 것처럼 보인다 — 그럴듯해서 눈으로는 알아채기 어렵다.
+	if (exit.type === 'push' && exit.progress > 0) translateX = -exit.progress * 100;
 
 	return {
 		position: 'absolute',

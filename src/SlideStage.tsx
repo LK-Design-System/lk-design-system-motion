@@ -14,12 +14,10 @@ import {springs} from './motion/springs';
  * lds-slides-ui의 SlideSurface는 1280px 논리 캔버스를 ResizeObserver로
  * 컨테이너에 맞춘다. 헤드리스 렌더에서는 그 layout effect가 스크린샷 전에
  * 돈다는 보장이 없다 — 실측 결과 돌면 이중 스케일(2.25×), 안 돌면 미적용이
- * 나왔다. 그래서 이 컴포넌트가 규칙이다:
+ * 나왔다. slides-ui alpha.3부터는 `scale="none"`이 계약이라, 자체 측정을
+ * 아예 건너뛴다. 그 전에는 여기서 style.transform을 덮어써 강제로 껐다.
  *
- *   1. 자식 슬라이드에 style.transform='none'을 주입해 자체 스케일을 끈다.
- *      (SlideSurface는 ...style을 transform 뒤에 스프레드하므로 안전하다.)
- *   2. 스케일은 useVideoConfig() 기반 순수 계산으로 이 컴포넌트가 소유한다.
- *
+ * 스케일은 useVideoConfig() 기반 순수 계산으로 이 컴포넌트가 소유한다.
  * 슬라이드의 내용·타이포·색·간격은 전부 LDS 소유이고, 여기는 시간과
  * 지오메트리만 소유한다.
  */
@@ -29,7 +27,7 @@ export const SLIDE_CANVAS = {width: 1280, height: 720} as const;
 
 export type SlideStageProps = {
 	/** lds-slides-ui 레이아웃 엘리먼트 하나 (TitleSlide, StatSlide, …) */
-	children: React.ReactElement<{style?: React.CSSProperties}>;
+	children: React.ReactElement<{scale?: 'auto' | 'none'}>;
 	/**
 	 * 등장 모션. 'rise'는 스프링 상승 + 페이드인, 'none'은 정적.
 	 *
@@ -79,9 +77,8 @@ export const SlideStage: React.FC<SlideStageProps> = ({
 	const translateY = interpolate(entranceSpring, [0, 1], [40, 0]);
 
 	// 자체 스케일 무력화 — SlideStage 결정론의 핵심.
-	const slide = React.cloneElement(children, {
-		style: {...children.props.style, transform: 'none'},
-	});
+	// slides-ui alpha.3의 계약이라, 측정 자체가 일어나지 않는다.
+	const slide = React.cloneElement(children, {scale: 'none'});
 
 	return (
 		<Fill style={{backgroundColor: background}}>

@@ -24,6 +24,13 @@ declare module '@lk-design-system/lds-slides-ui' {
 		/** 덱 종류 프리셋. --slides-* 토큰 값을 바꾼다. */
 		preset?: 'keynote' | 'briefing';
 		safeArea?: boolean;
+		/**
+		 * 누가 맞춤(fit)을 소유하는가. 'auto'(기본)는 SlideSurface가 컨테이너를
+		 * 측정해 스스로 스케일한다. 'none'은 논리 크기 그대로 그리고 배치를
+		 * 호출자에게 넘긴다 — 헤드리스 렌더에서 측정 타이밍이 보장되지 않아
+		 * 결정론이 깨지는 것을 막는다. SlideStage가 이 값을 넣는다.
+		 */
+		scale?: 'auto' | 'none';
 	}
 
 	export interface Figure {
