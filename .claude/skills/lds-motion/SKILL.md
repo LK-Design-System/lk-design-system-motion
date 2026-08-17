@@ -175,12 +175,12 @@ CI에서 실측(2026-08-15): 리눅스와 윈도우의 같은 프레임을 비�
 
 ## 알려진 상태
 
-- vendored LDS 핀: core/theme/product **rc.69.18**, slides-ui **alpha.4**
-  (2026-08-16 릴리스 라인과 정렬됨). 정본은 이 문서가 아니라 `package.json`과
-  `vendor/`의 실물 tgz다 — 어긋나 보이면 그쪽을 믿는다.
-  rc.4에서 rc.69.18로 65버전을 건너뛰었는데 렌더 산출물은 바이트까지
-  동일했다(DeckDemo sha256 `453a93d8a374e717…`). 격차는 비호환이 아니라
-  기록되지 않은 상태였다.
+- vendored LDS 핀: core/theme/product **rc.69.26**, slides-ui **alpha.7**
+  (2026-08-17, 열람 덱 세대 — slides-ui가 이 버전부터 GitHub Packages에도
+  올라간다. 새 tgz는 레지스트리에서 `npm pack`으로 받는다). 정본은 이
+  문서가 아니라 `package.json`과 `vendor/`의 실물 tgz다 — 어긋나 보이면
+  그쪽을 믿는다. rc.4→rc.69.18 65버전 점프에서도 렌더 산출물은 바이트까지
+  동일했다 — 격차는 비호환이 아니라 기록되지 않은 상태였다.
 - ~~editorial~~은 없다. 2026-08-16에 slides-ui로 흡수됐고 저장소도 삭제됐다.
   export 이름은 그대로 slides-ui에서 나온다.
 - 이 레포는 `private: true`다. clone해서 쓰는 도구이지 퍼블리시하는
