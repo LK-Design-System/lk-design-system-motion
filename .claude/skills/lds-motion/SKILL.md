@@ -175,7 +175,7 @@ CI에서 실측(2026-08-15): 리눅스와 윈도우의 같은 프레임을 비�
 
 ## 알려진 상태
 
-- vendored LDS 핀: core/theme/product **rc.69.28**, slides-ui **alpha.10**
+- vendored LDS 핀: core/theme/product **rc.69.28**, slides-ui **alpha.11**
   (2026-08-17, 산출 세대 — 덱이 Storybook 밖으로 나가기 시작한 릴리스다.
   이 레포에 닿는 변화 셋: ① `DeckPrintSheet`가 새 export이고 `DeckViewer`가
   `?lds-print=1`에서 그것으로 갈린다 — 렌더러는 URL에 그 파라미터를 붙이지
