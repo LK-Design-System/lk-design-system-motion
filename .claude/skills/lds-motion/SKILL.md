@@ -175,11 +175,16 @@ CI에서 실측(2026-08-15): 리눅스와 윈도우의 같은 프레임을 비�
 
 ## 알려진 상태
 
-- vendored LDS 핀: core/theme/product **rc.69.27**, slides-ui **alpha.8**
-  (2026-08-17, 위임 복귀 세대 — 위성의 손말이 표·레일이 업스트림 Table·
-  Timeline 위임으로 돌아갔다. 새 tgz는 레지스트리에서 `npm pack`으로 받되,
-  이 레포엔 .npmrc가 없으므로 스코프 레지스트리가 설정된 디렉터리에서 받아
-  `vendor/`로 옮긴다). 정본은 이
+- vendored LDS 핀: core/theme/product **rc.69.28**, slides-ui **alpha.10**
+  (2026-08-17, 산출 세대 — 덱이 Storybook 밖으로 나가기 시작한 릴리스다.
+  이 레포에 닿는 변화 셋: ① `DeckPrintSheet`가 새 export이고 `DeckViewer`가
+  `?lds-print=1`에서 그것으로 갈린다 — 렌더러는 URL에 그 파라미터를 붙이지
+  않으므로 영향 없음, ② 희소 레이아웃 넷이 색을 `--slides-ink-*` 간접층으로
+  읽는다 — 기본값이 곧 기존 라벨 토큰이라 프레임은 바이트 동일, ③ 새 어휘
+  4종(TrendChart·QuadrantSlide·TriptychSlide·MappingDiagram)은
+  `src/types/lds-slides-ui.d.ts`에 아직 없다 — 쓸 일이 생기면 그때 선언한다.
+  새 tgz는 레지스트리에서 `npm pack`으로 받되, 이 레포엔 .npmrc가 없으므로
+  스코프 레지스트리가 설정된 디렉터리에서 받아 `vendor/`로 옮긴다). 정본은 이
   문서가 아니라 `package.json`과 `vendor/`의 실물 tgz다 — 어긋나 보이면
   그쪽을 믿는다. rc.4→rc.69.18 65버전 점프에서도 렌더 산출물은 바이트까지
   동일했다 — 격차는 비호환이 아니라 기록되지 않은 상태였다.

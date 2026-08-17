@@ -17,12 +17,12 @@
     "postinstall": "playwright install chromium"
   },
   "dependencies": {
-    "@lk-design-system/lds-core": "file:vendor/lk-design-system-lds-core-0.1.0-rc.69.27.tgz",
-    "@lk-design-system/lds-slides-ui": "file:vendor/lk-design-system-lds-slides-ui-0.1.0-alpha.8.tgz",
-    "@lk-design-system/lds-theme": "file:vendor/lk-design-system-lds-theme-0.1.0-rc.69.27.tgz",
+    "@lk-design-system/lds-core": "file:vendor/lk-design-system-lds-core-0.1.0-rc.69.28.tgz",
+    "@lk-design-system/lds-slides-ui": "file:vendor/lk-design-system-lds-slides-ui-0.1.0-alpha.10.tgz",
+    "@lk-design-system/lds-theme": "file:vendor/lk-design-system-lds-theme-0.1.0-rc.69.28.tgz",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
-    "@lk-design-system/lds-product": "file:vendor/lk-design-system-lds-product-0.1.0-rc.69.27.tgz"
+    "@lk-design-system/lds-product": "file:vendor/lk-design-system-lds-product-0.1.0-rc.69.28.tgz"
   },
   "devDependencies": {
     "@types/react": "^19.2.7",
