@@ -175,9 +175,11 @@ CI에서 실측(2026-08-15): 리눅스와 윈도우의 같은 프레임을 비�
 
 ## 알려진 상태
 
-- vendored LDS 핀: core/theme/product **rc.69.26**, slides-ui **alpha.7**
-  (2026-08-17, 열람 덱 세대 — slides-ui가 이 버전부터 GitHub Packages에도
-  올라간다. 새 tgz는 레지스트리에서 `npm pack`으로 받는다). 정본은 이
+- vendored LDS 핀: core/theme/product **rc.69.27**, slides-ui **alpha.8**
+  (2026-08-17, 위임 복귀 세대 — 위성의 손말이 표·레일이 업스트림 Table·
+  Timeline 위임으로 돌아갔다. 새 tgz는 레지스트리에서 `npm pack`으로 받되,
+  이 레포엔 .npmrc가 없으므로 스코프 레지스트리가 설정된 디렉터리에서 받아
+  `vendor/`로 옮긴다). 정본은 이
   문서가 아니라 `package.json`과 `vendor/`의 실물 tgz다 — 어긋나 보이면
   그쪽을 믿는다. rc.4→rc.69.18 65버전 점프에서도 렌더 산출물은 바이트까지
   동일했다 — 격차는 비호환이 아니라 기록되지 않은 상태였다.
