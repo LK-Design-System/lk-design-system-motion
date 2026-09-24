@@ -15,7 +15,7 @@
     "check:determinism": "node scripts/check-determinism.mjs",
     "check:types": "tsc --noEmit",
     "check:slides-types": "node scripts/check-slides-types.mjs",
-    "postinstall": "playwright install chromium"
+    "postinstall": "node node_modules/playwright/cli.js install chromium"
   },
   "dependencies": {
     "@lk-design-system/lds-core": "file:vendor/lk-design-system-lds-core-0.1.0-rc.69.28.tgz",
