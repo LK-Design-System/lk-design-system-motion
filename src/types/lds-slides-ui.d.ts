@@ -6,7 +6,8 @@
  * 슬라이드 prop을 잘못 쓰면 tsc가 잡아준다.
  *
  * 소스는 slides-ui의 `src/components/slides/*.jsx`다. 패키지를 올릴 때
- * 시그니처가 바뀌었는지 함께 확인할 것. slides-ui가 자체 .d.ts를 갖게 되면
+ * 시그니처가 바뀌었는지는 `npm run check:slides-types`가 패키지의
+ * catalogue.json과 대조한다(아래 prop 주석의 알파 버전 표기는 도입 시점 기록). slides-ui가 자체 .d.ts를 갖게 되면
  * 이 파일은 지운다.
  */
 declare module '@lk-design-system/lds-slides-ui' {

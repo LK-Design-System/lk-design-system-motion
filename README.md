@@ -12,7 +12,7 @@ lds-motion               시간·스케일·등장/전환 모션   ← 이 레�
 내용·타이포·색은 디자인 시스템 소유, 움직임만 이 레포 소유다. 같은 입력은
 항상 같은 영상을 만든다 (`npm run check:determinism`으로 가드).
 
-**라이선스 비용 없음.** 엔진은 자체 구현이고 (`src/core/`, 약 450줄),
+**라이선스 비용 없음.** 엔진은 자체 구현이고 (`src/core/`, 작은 단일 모듈),
 의존성은 전부 MIT/Apache다 — React, Vite, Playwright, ffmpeg-static.
 Remotion을 쓰지 않는다 ([왜](#왜-remotion을-쓰지-않나)).
 
@@ -172,10 +172,13 @@ canvas 계열 대안(Motion Canvas, Revideo)은 MIT지만 React DOM을 렌더하
 정확한 핀은 `package.json`의 vendored tarball 경로가 단일 출처다. 아래 표는
 요약이며, 표가 낡았으면 `package.json`이 맞다.
 
-| 패키지 | 버전 | 비고 |
-|---|---|---|
-| lds-slides-ui | 0.1.0-alpha.6 | 레이아웃 원본. `scale="none"` 계약 포함. 구도 개편 세대(hero·분량 규칙·전폭 표·하단 출처) |
-| lds-core / theme / product | 0.1.0-rc.69.26 | 릴리스 라인과 정렬됨 (2026-08-17). display0이 여기서 생겨 alpha.6의 최소 요구다 |
+| 패키지 | 역할 |
+|---|---|
+| lds-slides-ui | 레이아웃 원본. `scale="none"` 계약에 기대 프레임을 직접 그린다 |
+| lds-core / theme / product | 토큰과 타이포. slides-ui가 요구하는 범위를 따른다 |
+
+버전은 이 표에 적지 않는다 — 표가 alpha.6/rc.69.26을 말하는 동안 실제 핀은 alpha.11/rc.69.28로
+가 있었다. 손으로 옮긴 slides-ui 타입은 `npm run check:slides-types`가 핀의 catalogue와 대조한다.
 
 ## 로드맵
 

@@ -14,6 +14,7 @@
     "render": "node scripts/render.mjs",
     "check:determinism": "node scripts/check-determinism.mjs",
     "check:types": "tsc --noEmit",
+    "check:slides-types": "node scripts/check-slides-types.mjs",
     "postinstall": "playwright install chromium"
   },
   "dependencies": {

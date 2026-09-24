@@ -36,6 +36,10 @@ jobs:
       - name: Typecheck
         run: npm run check:types
 
+      # The slides-ui types are a hand copy; tsc checks only our use of them.
+      - name: Ambient slides-ui types match the pinned package
+        run: npm run check:slides-types
+
       # 같은 프레임을 두 번 렌더해 SHA256이 일치하는지 본다.
       # 벽시계·ResizeObserver·난수에 의존하는 코드가 섞이면 여기서 죽는다.
       - name: 결정론 가드 (단일 슬라이드)
