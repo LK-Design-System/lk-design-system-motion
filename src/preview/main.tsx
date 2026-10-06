@@ -136,8 +136,9 @@ const Preview: React.FC = () => {
 				alignItems: 'center',
 				justifyContent: 'center',
 				gap: 24,
-				color: '#e6e6e9',
-				fontFamily: 'system-ui, sans-serif',
+				background: 'var(--color-semantic-background-normal-alternative)',
+				color: 'var(--color-semantic-label-normal)',
+				fontFamily: 'var(--font-sans)',
 				padding: 24,
 				boxSizing: 'border-box',
 			}}
@@ -158,19 +159,23 @@ const Preview: React.FC = () => {
 			<div
 				style={{
 					display: 'flex',
+					flexWrap: 'wrap',
 					alignItems: 'center',
 					gap: 16,
 					width: Math.min(comp.width * scale, box.w - 64),
+					maxWidth: '100%',
+					minWidth: 0,
 				}}
 			>
 				<select
+					aria-label="컴포지션"
 					value={id}
 					onChange={(e) => {
 						setId(e.target.value);
 						setFrame(0);
 						setPlaying(false);
 					}}
-					style={{padding: '6px 10px', fontSize: 14}}
+					style={{padding: '6px 10px', fontSize: 14, flexShrink: 0}}
 				>
 					{compositions.map((c) => (
 						<option key={c.id} value={c.id}>
@@ -180,11 +185,13 @@ const Preview: React.FC = () => {
 				</select>
 				<button
 					onClick={() => setPlaying((p) => !p)}
-					style={{padding: '6px 14px', fontSize: 14, minWidth: 72}}
+					style={{padding: '6px 14px', fontSize: 14, minWidth: 72, flexShrink: 0, whiteSpace: 'nowrap'}}
 				>
 					{playing ? '⏸ 정지' : '▶ 재생'}
 				</button>
 				<input
+					aria-label="프레임"
+					aria-valuetext={label}
 					type="range"
 					min={0}
 					max={comp.durationInFrames - 1}
@@ -193,9 +200,9 @@ const Preview: React.FC = () => {
 						setPlaying(false);
 						setFrame(Number(e.target.value));
 					}}
-					style={{flex: 1}}
+					style={{flex: '1 1 160px', minWidth: 0}}
 				/>
-				<code style={{fontSize: 13, minWidth: 150, textAlign: 'right'}}>
+				<code style={{fontSize: 13, marginLeft: 'auto', whiteSpace: 'nowrap', textAlign: 'right'}}>
 					{label}
 				</code>
 			</div>
