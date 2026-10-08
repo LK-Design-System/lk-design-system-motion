@@ -16,6 +16,15 @@ lds-motion               시간·스케일·등장/전환 모션   ← 이 레�
 의존성은 전부 MIT/Apache다 — React, Vite, Playwright, ffmpeg-static.
 Remotion을 쓰지 않는다 ([왜](#왜-remotion을-쓰지-않나)).
 
+## CI·릴리스 실행 위치
+
+다른 PC의 checkout은 실행 호스트 변경 승인이 아니다. 개발은 로컬 미리보기·빠른 검사,
+패키지 릴리스는 **server04의 자격검증된 저장소 전용 격리 VM**으로 구분한다.
+기존 자동 CI는 아래 현행 경로를 유지한다. 전체 검증을 현재 PC로 fallback하거나 새
+VM/runner를 자동 등록하지 않는다. 상세 규칙은 [AGENTS.md](AGENTS.md#ci릴리스-실행-호스트-필수)를 따른다.
+
+cold-clone CI는 GitHub-hosted Ubuntu/Windows의 결정론·MP4 검증이다. 개발 PC의 해당 컴포지션 미리보기와 구분한다. 전용 패키지 발행 workflow/runner는 구성되어 있지 않다.
+
 ## 시작하기
 
 **Node 22–24에서 동작한다** (`engines: ">=22 <25"`; CI는 22로 검증한다).
